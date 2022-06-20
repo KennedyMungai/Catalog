@@ -23,4 +23,11 @@ public class ItemsController : ControllerBase
         var items = repository.GetItems();
         return items;
     }
+
+    [HttpGet("{id:int}")]
+    public Item GetItem(Guid id)
+    {
+        var item = repository.GetItem(id);
+        return item;
+    }
 }

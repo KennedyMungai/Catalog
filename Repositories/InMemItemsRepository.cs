@@ -1,3 +1,4 @@
+using Microsoft.Win32.SafeHandles;
 using Catalog.Entities;
 
 namespace Catalog.Repositories;

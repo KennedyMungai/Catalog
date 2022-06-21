@@ -1,4 +1,6 @@
-namespace Catalog.Entities;
+using Catalog.Entities;
+
+namespace Catalog.Repositories;
 
 public interface IInMemItemsRepository
 {

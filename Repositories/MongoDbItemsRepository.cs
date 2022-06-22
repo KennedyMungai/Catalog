@@ -31,12 +31,12 @@ public class MongoDbItemsRepository : IItemsRepository
     public async Task<Item> GetItemAsync(Guid id)
     {
         var filter = filterBuilder.Eq(item => item.Id, id);
-            return itemsCollection.FindAsync(filter).SingleOrDefault();
+        return await itemsCollection.Find(filter).SingleOrDefaultAsync();
     }
 
     public async Task<IEnumerable<Item>> GetItemsAsync()
     {
-        return itemsCollection.FindAsync(new BsonDocument()).ToListAsync();
+        return await itemsCollection.Find(new BsonDocument()).ToListAsync();
     }
 
     public async Task UpdateItemAsync(Item item)

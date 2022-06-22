@@ -1,4 +1,6 @@
+using System.Net.Mime;
 using System.Data.Common;
+using System.Text.Json;
 using Catalog.Repositories;
 using Catalog.Settings;
 using MongoDB.Bson;
@@ -47,6 +49,30 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapHealthChecks("/health");
+
+app.MapHealthChecks("/health/ready", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions {
+    Predicate = (check) => check.Tags.Contains("ready"),
+    ResponseWriter = async(context, report) =>
+    {
+        var result = JsonSerializer.Serialize(
+            new{
+                status = report.Status.ToString(),
+                checks = report.Entries.Select(entry => new {
+                    name = entry.Key,
+                    status = entry.Value.Status.ToString(),
+                    exception = entry.Value.Exception != null ? entry.Value.Exception.Message : "none",
+                    duration = entry.Value.Duration.ToString()
+                })
+            }
+        );
+
+        context.Response.ContentType = MediaTypeNames.Application.Json;
+        await context.Response.WriteAsync(result);
+    }
+});
+
+app.MapHealthChecks("/health/live", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions {
+    Predicate = (_) => false
+});
 
 app.Run();

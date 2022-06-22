@@ -22,14 +22,6 @@ spec:
         volumeMounts:
         - name: www
           mountPath: /usr/share/nginx/html
-  volumeClaimTemplates:
-  - metadata:
-      name: www
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      resources:
-        requests:
-          storage: 1Gi
     env:
       - name: MONGO_INITDB_ROOT_USERNAME
         value: "mongoadmin"
@@ -38,3 +30,11 @@ spec:
           secretKeyRef:
             name: catalog-secrets
             key: mongodb-password
+  volumeClaimTemplates:
+  - metadata:
+      name: www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi

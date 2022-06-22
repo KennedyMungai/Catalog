@@ -22,6 +22,7 @@ BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
 BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
 builder.Services.Configure<MongoDbItemsRepository>(builder.Configuration.GetSection("MongoDbSettings"));
 builder.Services.AddSingleton<IItemsRepository, MongoDbItemsRepository>();
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -37,5 +38,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHealthChecks("/health");
 
 app.Run();

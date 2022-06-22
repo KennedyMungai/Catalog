@@ -15,14 +15,18 @@ builder.Services.AddControllers(options =>
         options.SuppressAsyncSuffixInActionNames = false;
     }
 );
+
+var mongoDbSettings = builder.Configuration.GetSection("MongoDbSettings");
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
 BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
-builder.Services.Configure<MongoDbItemsRepository>(builder.Configuration.GetSection("MongoDbSettings"));
+builder.Services.Configure<MongoDbItemsRepository>(mongoDbSettings);
 builder.Services.AddSingleton<IItemsRepository, MongoDbItemsRepository>();
-builder.Services.AddHealthChecks();
+builder.Services.AddHealthChecks()
+    .AddMongoDb(mongoDbSettings.GetConnectionString("MongoDbSettings"), name: "mongodb", timeout: TimeSpan.FromSeconds(3));
 
 var app = builder.Build();
 

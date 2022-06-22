@@ -32,7 +32,7 @@ spec:
             key: mongodb-password
   volumeClaimTemplates:
   - metadata:
-      name: www
+      name: data
     spec:
       accessModes: [ "ReadWriteOnce" ]
       resources:

@@ -30,6 +30,9 @@ spec:
           secretKeyRef:
             name: catalog-secrets
             key: mongodb-password
+    volumeMounts:
+      - mountPath: /data/db
+        name: data
   volumeClaimTemplates:
   - metadata:
       name: data

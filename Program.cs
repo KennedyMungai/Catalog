@@ -26,7 +26,12 @@ BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String))
 builder.Services.Configure<MongoDbItemsRepository>(mongoDbSettings);
 builder.Services.AddSingleton<IItemsRepository, MongoDbItemsRepository>();
 builder.Services.AddHealthChecks()
-    .AddMongoDb(mongoDbSettings.GetConnectionString("MongoDbSettings"), name: "mongodb", timeout: TimeSpan.FromSeconds(3));
+    .AddMongoDb(
+        mongoDbSettings.GetConnectionString("MongoDbSettings"), 
+        name: "mongodb", timeout: 
+        TimeSpan.FromSeconds(3),
+        tags: new[]{"ready"}
+        );
 
 var app = builder.Build();
 

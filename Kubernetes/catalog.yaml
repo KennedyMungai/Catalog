@@ -28,4 +28,11 @@ spec:
             secretKeyRef:
               name: catalog-secrets
               key: mongodb-password
-
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 80
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 80

@@ -22,14 +22,14 @@ public class ItemsController : ControllerBase
     [HttpGet]
     public IEnumerable<ItemDto> GetItems()
     {
-        var items = repository.GetItems().Select(item => item.AsDto());
+        var items = repository.GetItemsAsync().Select(item => item.AsDto());
         return items;
     }
 
     [HttpGet("{id:int}")]
     public ActionResult<ItemDto> GetItem(Guid id)
     {
-        var item = repository.GetItem(id);
+        var item = repository.GetItemAsync(id);
 
         if (item is null)
         {
@@ -50,7 +50,7 @@ public class ItemsController : ControllerBase
             CreatedDate = DateTimeOffset.UtcNow
         };
 
-        repository.CreateItem(item);
+        repository.CreateItemAsync(item);
 
         return CreatedAtAction(nameof(GetItem), new {id = item.Id}, item.AsDto());
     }
@@ -59,7 +59,7 @@ public class ItemsController : ControllerBase
     [HttpPut("{id}")]
     public ActionResult UpdateItem(Guid id, UpdateItemDto itemDto)
     {
-        var existingItem  = repository.GetItem(id);
+        var existingItem  = repository.GetItemAsync(id);
 
         if(existingItem is null)
         {
@@ -71,7 +71,7 @@ public class ItemsController : ControllerBase
             Price = itemDto.Price
         };
 
-        repository.UpdateItem(updatedItem);
+        repository.UpdateItemAsync(updatedItem);
 
         return NoContent();
     }
@@ -80,14 +80,14 @@ public class ItemsController : ControllerBase
     [HttpDelete("{id}")]
     public ActionResult DeleteItem(Guid id)
     {
-        var existingItem  = repository.GetItem(id);
+        var existingItem  = repository.GetItemAsync(id);
 
         if(existingItem is null)
         {
             return NotFound();
         }
 
-        repository.DeleteItem(id);
+        repository.DeleteItemAsync(id);
 
         return NoContent();
     }

@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen();
 BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
 BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
 builder.Services.Configure<MongoDbItemsRepository>(builder.Configuration.GetSection("MongoDbSettings"));
-builder.Services.AddSingleton<IInMemItemsRepository, MongoDbItemsRepository>();
+builder.Services.AddSingleton<IItemsRepository, MongoDbItemsRepository>();
 
 var app = builder.Build();
 

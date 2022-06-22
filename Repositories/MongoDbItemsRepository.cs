@@ -24,7 +24,8 @@ public class MongoDbItemsRepository : IInMemItemsRepository
 
     public void DeleteItem(Guid id)
     {
-        throw new NotImplementedException();
+        var filter = filterBuilder.Eq(item => item.Id, id);
+        itemsCollection.DeleteOne(filter);
     }
 
     public Item GetItem(Guid id)
@@ -40,6 +41,7 @@ public class MongoDbItemsRepository : IInMemItemsRepository
 
     public void UpdateItem(Item item)
     {
-        throw new NotImplementedException();
+        var filter = filterBuilder.Eq(existingItem => existingItem.Id, item.Id);
+        itemsCollection.ReplaceOne(filter, item);
     }
 }

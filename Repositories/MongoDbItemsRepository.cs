@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace Catalog.Repositories;
 
-public class MongoDbItemsRepository : IInMemItemsRepository
+public class MongoDbItemsRepository : IItemsRepository
 {
     private const string databaseName = "catalog";
     private const string collectionName = "items";

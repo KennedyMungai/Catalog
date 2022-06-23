@@ -1,8 +1,8 @@
 using System.Net.Mime;
 using System.Data.Common;
 using System.Text.Json;
-using Catalog.Repositories;
-using Catalog.Settings;
+using Catalog.Api.Repositories;
+using Catalog.Api.Settings;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;

@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 
-using Catalog.Repositories;
-using Catalog.Entities;
-using Catalog.Dtos;
-using Catalog.Extensions;
+using Catalog.Api.Repositories;
+using Catalog.Api.Entities;
+using Catalog.Api.Dtos;
+using Catalog.Api.Extensions;
 
-namespace Catalog.Controllers;
+namespace Catalog.Api.Controllers;
 
 //GET /Items
 [ApiController]

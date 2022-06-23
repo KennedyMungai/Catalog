@@ -1,7 +1,7 @@
 using Microsoft.Win32.SafeHandles;
-using Catalog.Entities;
+using Catalog.Api.Entities;
 
-namespace Catalog.Repositories;
+namespace Catalog.Api.Repositories;
 
 
 public class ItemsRepository : IItemsRepository

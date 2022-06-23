@@ -2,6 +2,7 @@ using Catalog.Api.Controllers;
 using Catalog.Api.Dtos;
 using Catalog.Api.Entities;
 using Catalog.Api.Repositories;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -44,12 +45,7 @@ public class ItemsControllerTests
         var result = await controller.GetItemAsync(Guid.NewGuid());
 
         // Then
-        Assert.IsType<ItemDto>(result.Value);
-        var dto = (result as ActionResult<ItemDto>).Value;
-        Assert.Equal(expectedItem.Id, dto.Id);
-        Assert.Equal(expectedItem.Name, dto.Name);
-        Assert.Equal(expectedItem.Price, dto.Price);
-        Assert.Equal(expectedItem.CreatedDate, dto.CreatedDate);
+        result.Value.Should().BeEquivalentTo(expectedItem);
     }
 
     private Item CreateRandomItem()

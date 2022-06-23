@@ -72,12 +72,10 @@ public class ItemsController : ControllerBase
             return NotFound();
         }
 
-        Item updatedItem = existingItem with {
-            Name = itemDto.Name, 
-            Price = itemDto.Price
-        };
+        existingItem.Name = itemDto.Name;
+        existingItem.Price = itemDto.Price;
 
-        await repository.UpdateItemAsync(updatedItem);
+        await repository.UpdateItemAsync(existingItem);
 
         return NoContent();
     }

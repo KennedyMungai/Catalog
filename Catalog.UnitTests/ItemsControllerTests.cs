@@ -1,6 +1,6 @@
 namespace Catalog.UnitTests;
 
-public class UnitTest1
+public class ItemsControllerTests
 {
     [Fact]
     public void Test1()

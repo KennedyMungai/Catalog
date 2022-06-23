@@ -52,6 +52,7 @@ public class ItemsController : ControllerBase
         {
             Id = Guid.NewGuid(),
             Name = itemDto.Name,
+            Description = itemDto.Description,
             Price = itemDto.Price,
             CreatedDate = DateTimeOffset.UtcNow
         };

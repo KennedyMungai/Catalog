@@ -15,6 +15,10 @@ public class ItemsControllerTests
     private readonly Mock<ILogger<ItemsController>> loggerStub = new Mock<ILogger<ItemsController>>();
     private readonly Random rand = new();
 
+    /// <summary>
+    /// A test for the GetItemAsync method that returns null
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task GetItemAsync_WithUnexistingItem_ReturnsNotFound()
     {
@@ -31,6 +35,10 @@ public class ItemsControllerTests
         result.Result.Should().BeOfType<NotFoundResult>();
     }
 
+    /// <summary>
+    /// A test for the GetItemAsync method that returns an item
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task GetItemAsync_WithExistingItem_ReturnsExpectedItem()
     {
@@ -51,6 +59,10 @@ public class ItemsControllerTests
             );
     }
 
+    /// <summary>
+    /// This method creates a random item
+    /// </summary>
+    /// <returns></returns>
     private Item CreateRandomItem()
     {
         return new()

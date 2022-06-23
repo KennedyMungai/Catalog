@@ -83,6 +83,28 @@ public class ItemsControllerTests
             );
     }
 
+    [Fact]
+    public async Task CreateItemAsync_WithItemToCreate_ReturnsCreatedItem()
+    {
+        // Given
+        var itemToCreate = new CreateItemDto()
+        {
+            Name = Guid.NewGuid().ToString(),
+            Price = rand.Next(1000)
+        };
+
+        var controller = new ItemsController(repositoryStub.Object, loggerStub.Object);
+        // When
+        var result = await controller.CreateItemAsync(itemToCreate);
+
+        // Then
+        var createdItem = (result.Result as CreatedAtActionResult).Value as ItemDto;
+        itemToCreate.Should().BeEquivalentTo(
+            createdItem, 
+            options => options.ComparingByMembers<ItemDto>().ExcludingMissingMembers()
+            );
+    }
+
     /// <summary>
     /// This method creates a random item
     /// </summary>

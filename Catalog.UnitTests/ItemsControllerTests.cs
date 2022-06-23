@@ -45,7 +45,10 @@ public class ItemsControllerTests
         var result = await controller.GetItemAsync(Guid.NewGuid());
 
         // Then
-        result.Value.Should().BeEquivalentTo(expectedItem);
+        result.Value.Should().BeEquivalentTo(
+            expectedItem, 
+            options => options.ComparingByMembers<Item>()
+            );
     }
 
     private Item CreateRandomItem()

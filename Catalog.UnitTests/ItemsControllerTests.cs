@@ -83,6 +83,10 @@ public class ItemsControllerTests
             );
     }
 
+    /// <summary>
+    /// This tests CreatedItemAsync controller method
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task CreateItemAsync_WithItemToCreate_ReturnsCreatedItem()
     {

@@ -26,6 +26,9 @@ public class ItemsController : ControllerBase
     {
         var items = (await repository.GetItemsAsync())
                     .Select(item => item.AsDto());
+
+        logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")}: Retrived {items.Count()} items");
+
         return items;
     }
 

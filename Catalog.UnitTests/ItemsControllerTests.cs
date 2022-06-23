@@ -60,21 +60,6 @@ public class ItemsControllerTests
     }
 
     /// <summary>
-    /// This method creates a random item
-    /// </summary>
-    /// <returns></returns>
-    private Item CreateRandomItem()
-    {
-        return new()
-        {
-            Id = Guid.NewGuid(), 
-            Name = Guid.NewGuid().ToString(),
-            Price = rand.Next(1000),
-            CreatedDate = DateTimeOffset.UtcNow
-        };
-    }
-
-    /// <summary>
     /// This method testst the GetItemsAsync method
     /// </summary>
     /// <returns></returns>
@@ -96,5 +81,20 @@ public class ItemsControllerTests
             expectedItems,
             options => options.ComparingByMembers<Item>()
             );
+    }
+
+    /// <summary>
+    /// This method creates a random item
+    /// </summary>
+    /// <returns></returns>
+    private Item CreateRandomItem()
+    {
+        return new()
+        {
+            Id = Guid.NewGuid(), 
+            Name = Guid.NewGuid().ToString(),
+            Price = rand.Next(1000),
+            CreatedDate = DateTimeOffset.UtcNow
+        };
     }
 }

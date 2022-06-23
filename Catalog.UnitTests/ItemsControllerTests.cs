@@ -74,13 +74,27 @@ public class ItemsControllerTests
         };
     }
 
+    /// <summary>
+    /// This method testst the GetItemsAsync method
+    /// </summary>
+    /// <returns></returns>
     [Fact]
     public async Task GetItemsAsync_WithExistingItems_ReturnsAllItems()
     {
         // Given
-        
+        var expectedItems = new[]{CreateRandomItem(), CreateRandomItem(), CreateRandomItem()};
+
+        repositoryStub.Setup(repo => repo.GetItemsAsync())
+            .ReturnsAsync(expectedItems);
+
+        var controller = new ItemsController(repositoryStub.Object, loggerStub.Object);
         // When
+        var actualItems = await controller.GetItemsAsync();
     
         // Then
+        actualItems.Should().BeEquivalentTo(
+            expectedItems,
+            options => options.ComparingByMembers<Item>()
+            );
     }
 }

@@ -14,7 +14,7 @@ public class ItemsControllerTests
     private readonly Mock<IItemsRepository> repositoryStub = new Mock<IItemsRepository>();
     private readonly Mock<ILogger<ItemsController>> loggerStub = new Mock<ILogger<ItemsController>>();
     private readonly Random rand = new();
-    private readonly TimeSpan milliseconds = new TimeSpan(1000000);
+    private readonly TimeSpan milliseconds = new TimeSpan(10000000);
 
     /// <summary>
     /// A test for the GetItemAsync method that returns null
@@ -111,6 +111,33 @@ public class ItemsControllerTests
         
         createdItem.Id.Should().NotBeEmpty();
         createdItem.CreatedDate.Should().BeCloseTo(DateTimeOffset.UtcNow, milliseconds);
+    }
+
+    /// <summary>
+    /// This method tests for a item update
+    /// </summary>
+    [Fact]
+    public async Task UpdateItemAsync_WithExistingItem_ReturnsNoContent()
+    {
+        // Given
+        var existingItem = CreateRandomItem();
+
+        repositoryStub.Setup(repo => repo.GetItemAsync(It.IsAny<Guid>()))
+            .ReturnsAsync(existingItem);
+
+        var itemId = existingItem.Id;
+        var itemToUpdate = new UpdateItemDto()
+        {
+            Name = Guid.NewGuid().ToString(),
+            Price = existingItem.Price + 3
+        };
+
+        var controller = new ItemsController(repositoryStub.Object, loggerStub.Object);
+        // When
+        var result = await controller.UpdateItemAsync(itemId, itemToUpdate);
+    
+        // Then
+        result.Should().BeOfType<NoContentResult>();
     }
 
     /// <summary>

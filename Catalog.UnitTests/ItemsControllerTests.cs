@@ -14,6 +14,7 @@ public class ItemsControllerTests
     private readonly Mock<IItemsRepository> repositoryStub = new Mock<IItemsRepository>();
     private readonly Mock<ILogger<ItemsController>> loggerStub = new Mock<ILogger<ItemsController>>();
     private readonly Random rand = new();
+    private readonly TimeSpan milliseconds = new TimeSpan(1000000);
 
     /// <summary>
     /// A test for the GetItemAsync method that returns null
@@ -109,7 +110,7 @@ public class ItemsControllerTests
             );
         
         createdItem.Id.Should().NotBeEmpty();
-        createdItem.CreatedDate.Should().BeCloseTo(DateTimeOffset.UtcNow, new System.TimeSpan(1000));
+        createdItem.CreatedDate.Should().BeCloseTo(DateTimeOffset.UtcNow, milliseconds);
     }
 
     /// <summary>

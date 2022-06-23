@@ -22,7 +22,7 @@ public class ItemsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<ItemDto>> GetItemsAsync()
+    public async Task<IEnumerable<ItemDto>> GetItemsAsync(string nameToMatch = null)
     {
         var items = (await repository.GetItemsAsync())
                     .Select(item => item.AsDto());

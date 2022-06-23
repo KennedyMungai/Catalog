@@ -141,6 +141,26 @@ public class ItemsControllerTests
     }
 
     /// <summary>
+    /// This method tests the delete item controller function
+    /// </summary>
+    [Fact]
+    public async Task DeleteItemAsync_WithExistingItem_ReturnsNoContent()
+    {
+        // Given
+        Item existingItem = CreateRandomItem();
+
+        repositoryStub.Setup(repo => repo.GetItemAsync(It.IsAny<Guid>()))
+            .ReturnsAsync(existingItem); 
+
+        var controller = new ItemsController(repositoryStub.Object, loggerStub.Object);
+        // When
+        var result = await controller.DeleteItemAsync(existingItem.Id);
+
+        // Then
+        result.Should().BeOfType<NoContentResult>();
+    }
+
+    /// <summary>
     /// This method creates a random item
     /// </summary>
     /// <returns></returns>

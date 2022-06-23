@@ -107,6 +107,9 @@ public class ItemsControllerTests
             createdItem, 
             options => options.ComparingByMembers<ItemDto>().ExcludingMissingMembers()
             );
+        
+        createdItem.Id.Should().NotBeEmpty();
+        createdItem.CreatedDate.Should().BeCloseTo(DateTimeOffset.UtcNow, new System.TimeSpan(1000));
     }
 
     /// <summary>

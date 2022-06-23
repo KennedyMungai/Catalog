@@ -85,6 +85,45 @@ public class ItemsControllerTests
     }
 
     /// <summary>
+    /// This method test the GetItemsAsync method with matching results
+    /// </summary>
+    /// <returns></returns>
+    [Fact]
+    public async Task GetItemsAsync_WithMatchingItems_ReturnsMatchingItems()
+    {
+        // Given
+        var allItems = new[]
+        {
+            new Item()
+            {
+                Name = "Potion",
+            },
+            new Item()
+            {
+                Name = "Antidote",
+            },
+            new Item()
+            {
+                Name = "Hi-Potion",
+            }
+        };
+
+        string? nameToMatch = "Potion";
+
+        repositoryStub.Setup(repo => repo.GetItemsAsync())
+            .ReturnsAsync(allItems);
+
+        var controller = new ItemsController(repositoryStub.Object, loggerStub.Object);
+        // When
+        IEnumerable<ItemDto> foundItems = await controller.GetItemsAsync(nameToMatch);
+    
+        // Then
+        foundItems.Should().OnlyContain(
+            item => item.Name == allItems[0].Name || item.Name == allItems[2].Name
+        );
+    }
+
+    /// <summary>
     /// This tests CreatedItemAsync controller method
     /// </summary>
     /// <returns></returns>

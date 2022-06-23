@@ -73,4 +73,14 @@ public class ItemsControllerTests
             CreatedDate = DateTimeOffset.UtcNow
         };
     }
+
+    [Fact]
+    public async Task GetItemsAsync_WithExistingItems_ReturnsAllItems()
+    {
+        // Given
+        
+        // When
+    
+        // Then
+    }
 }

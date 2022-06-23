@@ -11,6 +11,7 @@ public class ItemsControllerTests
 {
     private readonly Mock<IItemsRepository> repositoryStub = new Mock<IItemsRepository>();
     private readonly Mock<ILogger<ItemsController>> loggerStub = new Mock<ILogger<ItemsController>>();
+    private readonly Random rand = new();
 
     [Fact]
     public async Task GetItemAsync_WithUnexistingItem_ReturnsNotFound()
@@ -36,5 +37,16 @@ public class ItemsControllerTests
         // When
     
         // Then
+    }
+
+    private Item CreateRandomItem()
+    {
+        return new()
+        {
+            Id = Guid.NewGuid(), 
+            Name = Guid.NewGuid().ToString(),
+            Price = rand.Next(1000),
+            CreatedDate = DateTimeOffset.UtcNow
+        };
     }
 }
